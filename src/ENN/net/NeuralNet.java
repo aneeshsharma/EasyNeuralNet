@@ -518,19 +518,19 @@ public class NeuralNet
     /**
      * A method for mutating the neural network and return a new one. This works on the theory of evolution.
      * Use where you have MANY neural networks and back-propagation cannot be used. 
-     * 
+     * @param probability The probability of any weight to mutate
      * @return The mutated Neural Network
      */
-    public NeuralNet mutateAll(double prob)
+    public NeuralNet mutateAll(double probability)
     {
         NeuralNet n = new NeuralNet(in-1, hid-1, out, LR);
         for(int l = 0; l < hid - 1 ; l++)
             for(int m = 0; m < in; m++) {
-                n.w1[m][l] = (Math.random() <= prob) ? w1[m][l] + (Math.random() * 2 - 1) * LR : w1[m][l];
+                n.w1[m][l] = (Math.random() <= probability) ? w1[m][l] + (Math.random() * 2 - 1) * LR : w1[m][l];
             }
         for(int l = 0; l < out; l++)
             for(int m = 0; m < hid; m++)
-                n.w2[m][l] = (Math.random() <= prob) ? w2[m][l] + (Math.random() * 2 - 1) * LR : w2[m][l];
+                n.w2[m][l] = (Math.random() <= probability) ? w2[m][l] + (Math.random() * 2 - 1) * LR : w2[m][l];
         return n;
     }
 
