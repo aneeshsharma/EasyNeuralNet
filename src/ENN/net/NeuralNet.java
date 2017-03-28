@@ -32,12 +32,12 @@ public class NeuralNet
      * double 2D array for storing weights from input layer to hidden layer
      * <br>NOTE: For weight of connection from input neuron i to hidden neuron j, use - w1[i][j]
      */
-    public double w1[][];
+    private double w1[][];
     /**
      * double 2D array for storing weights of connections from hidden layer to output layer
      * <br>NOTE: For weight of connection from hidden neuron j to output neuron k, use - w2[i][j]
      */
-    public double w2[][];
+    private double w2[][];
     /**
      * double 1D array for storing the inputs to input neuron
      * <br>NOTE: to access the nth input, use i[n]
@@ -71,11 +71,11 @@ public class NeuralNet
     /**
      * byte variable - Stores the size of the circular neuron when drawing. Set it according to your screen size
      */
-    public byte size;
+    private byte size;
     /**
      * byte variable - Stores the text size for the displayed text
      */
-    public byte _tSize;
+    private byte _tSize;
     /**
      * integer variable - Stores number of input neurons
      */
@@ -350,8 +350,7 @@ public class NeuralNet
     private double sigma(double[] x)
     {
         double sum=0;
-        for(int n=0;n<x.length;n++)
-            sum+=x[n];
+        for (double aX : x) sum += aX;
         return sum;
     }
     /**
@@ -409,8 +408,7 @@ public class NeuralNet
         for(int n=0;n<_j.length-1;n++)
           parent.line(X1+30,_i[m],((X2-X1)/2),_j[n]);
       for(m=0;m<_j.length;m++)
-        for(int n=0;n<_k.length;n++)
-          parent.line(((X2-X1)/2),_j[m],X2-30,_k[n]);
+          for (int a_k : _k) parent.line(((X2 - X1) / 2), _j[m], X2 - 30, a_k);
       binCalc();
       parent.textAlign(LEFT);
       for(m=0;m<_k.length;m++){
@@ -419,7 +417,9 @@ public class NeuralNet
       }
       }
       catch(NullPointerException e)
-      {}
+      {
+
+      }
     }
     /**
      * Calculates the binary form of the output values in k[]
@@ -521,15 +521,16 @@ public class NeuralNet
      * 
      * @return The mutated Neural Network
      */
-    public NeuralNet mutateAll()
+    public NeuralNet mutateAll(double prob)
     {
         NeuralNet n = new NeuralNet(in-1, hid-1, out, LR);
         for(int l = 0; l < hid - 1 ; l++)
-            for(int m = 0; m < in; m++)
-                n.w1[m][l] = w1[m][l] + (Math.random() * 2 - 1) * LR;
+            for(int m = 0; m < in; m++) {
+                n.w1[m][l] = (Math.random() <= prob) ? w1[m][l] + (Math.random() * 2 - 1) * LR : w1[m][l];
+            }
         for(int l = 0; l < out; l++)
             for(int m = 0; m < hid; m++)
-                n.w2[m][l] = w2[m][l] + (Math.random() * 2 - 1) * LR;
+                n.w2[m][l] = (Math.random() <= prob) ? w2[m][l] + (Math.random() * 2 - 1) * LR : w2[m][l];
         return n;
     }
 
@@ -565,7 +566,7 @@ public class NeuralNet
         for(int l = 0; l < out; l++)
             for(int m = 0; m < hid; m++)
                 n.w2[m][l] = (r.nextBoolean()) ? w2[m][l] : net.w2[m][l];
-        return n;
+        return n.mutateAll(0.7);
     }
 
     /**
@@ -579,7 +580,7 @@ public class NeuralNet
     public NeuralNet mutate(int MODE){
         switch (MODE){
             case ALL:
-                return mutateAll();
+                return mutateAll(0.7);
             case SINGLE:
                 return mutateLeast();
             default:
