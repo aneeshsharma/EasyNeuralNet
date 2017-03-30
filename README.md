@@ -3,6 +3,7 @@ This is a well documented java library to implement simple 3 layered Neural Netw
 I am still developing it but the backpropagation algorithm is fully functional.
 
 <h4>Documentation can be found <a href="https://aneeshsharma.github.io/EasyNeuralNet/docs/">HERE</a></h4>
+<h4>Download The compiled library <a href="https://aneeshsharma.github.io/EasyNeuralNet/docs/">HERE</a></h4>
 
 <h2>Structure</h2>
 
