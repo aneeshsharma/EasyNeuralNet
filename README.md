@@ -2,6 +2,10 @@
 This is a well documented java library to implement simple 3 layered Neural Networks. It is an easy to use library and is quite simple.
 I am still developing it but the backpropagation algorithm is fully functional.
 
+You can also link this to a Processing sketch and draw the entire network to your screen and watch the individual layers and their values and the outputs.
+
+After training the network, you can save the weights to a file and load those weights again the next time. This helps you to train the network and then use the trained network multiple times to perform particular tasks. Also, you could this helps you to resume the learning process from where it left.
+
 <h4>Documentation can be found <a href="https://aneeshsharma.github.io/EasyNeuralNet/docs/">HERE</a></h4>
 <h4>Download The compiled library <a href="https://aneeshsharma.github.io/EasyNeuralNet/docs/">HERE</a></h4>
 
